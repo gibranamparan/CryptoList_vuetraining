@@ -21,13 +21,27 @@
     <body>
         <div id="app">
             <h1 class="text-center">{{title}}</h1>
-            <div v-for="crypto in cryptos">
-                <img v-bind:src="crypto.logo" v-bind:alt="crypto.name">
-                <span>{{crypto.name}}</span>
+            <span>{{coinsList}}</span>
+            <div v-for="crypto in cryptos" class="uppercase">
+                <coin-details 
+                    v-bind:crypto="crypto" 
+                    v-bind:class="{'selected-coin': crypto.name == selectedCoin}" 
+                    v-on:coin-selected="selectCoin"
+                    class="coin-details">
+                    
+                    <template v-slot:more-info>
+                        <p>This is just more information about {{crypto.name}} currency like news, reviews, additional details.</p>                        
+                    </template>
+                    <template v-slot:graph>
+                        <p>Here should be a trading view graph.</p>                        
+                    </template>
+                                        
+                </coin-details>
             </div>
         </div>
         <!-- jQuery -->
-        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+        <script src="./coinDetails/coinDetails.js"></script>
         <script src="./app.js"></script>
     </body>
 </html>
